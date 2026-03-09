@@ -27,9 +27,9 @@ mongoose
   .connect(mongoURI)
   .then(() => {
     // for adding roles in db liek user instructor admin
-    seedRoles();
-    seedCourseCategory();
-    seedSettings();
+    // seedRoles();
+    // seedCourseCategory();
+    // seedSettings();
 
     console.log("✅ MongoDB connected to local instance.");
   })
