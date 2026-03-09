@@ -32,7 +32,7 @@ const sendOtpToPhone = async (req, res) => {
         expiresAt,
         used: false,
       },
-      { upsert: true, new: true, setDefaultsOnInsert: true }
+      { upsert: true, new: true, setDefaultsOnInsert: true },
     );
 
     // Check if user exists
@@ -265,7 +265,7 @@ const emailsignup = async (req, res) => {
       expiresAt: new Date(Date.now() + 10 * 60 * 1000), // 10 minutes
     });
     console.log(otp);
-    
+
     // Generate email verification token
     // const verifyToken = jwt.sign(
     //   { id: newUser._id },
@@ -278,12 +278,12 @@ const emailsignup = async (req, res) => {
 
     // Send verification email
     try {
-      // await sendMail(email, "Verify your email", "verifyEmail", {
-      //   name: name,
-      //   otp: otp,
-      // });
+      await sendMail(email, "Verify your email", "verifyEmail", {
+        name: name,
+        otp: otp,
+      });
     } catch (mailError) {
-        res.status(500).json('sorry some error occured')
+      res.status(500).json("sorry some error occured");
       console.log("Email sending failed:", mailError);
       // Don't fail registration if email fails
     }
@@ -425,7 +425,7 @@ const forgotPassword = async (req, res) => {
     const resetToken = jwt.sign(
       { id: user._id },
       process.env.AUTH_MAIL_SECRET,
-      { expiresIn: "1h" }
+      { expiresIn: "1h" },
     );
 
     const resetLink = `${process.env.CLIENT_URL}/reset-password/${resetToken}`;
@@ -534,7 +534,7 @@ const refreshToken = async (req, res) => {
 
     // Check if this token exists in user's session list
     const sessionMatch = user.sessions.find(
-      (session) => session.refreshToken === token
+      (session) => session.refreshToken === token,
     );
     console.log("-451", sessionMatch);
 
@@ -582,7 +582,7 @@ const logout = async (req, res) => {
       if (user) {
         // Remove this session from user's sessions
         user.sessions = user.sessions.filter(
-          (session) => session.refreshToken !== token
+          (session) => session.refreshToken !== token,
         );
         await user.save();
       }
