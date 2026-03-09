@@ -4,7 +4,6 @@ const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
 const fs = require("fs");
 
-
 const routes = require("./routes/route");
 const seedSettings = require("./config/seedSettings");
 
@@ -18,7 +17,7 @@ app.use(
   cors({
     origin: process.env.CLIENT_URL, // or your frontend URL
     credentials: true, // allow sending cookies/headers
-  })
+  }),
 );
 app.use(express.json());
 app.use(cookieParser());
@@ -28,7 +27,7 @@ mongoose
   .connect(mongoURI)
   .then(() => {
     // for adding roles in db liek user instructor admin
-    // seedRoles();
+    seedRoles();
     seedCourseCategory();
     seedSettings();
 
@@ -64,7 +63,7 @@ app.get("/api/uploads/:filename", (req, res) => {
   res.setHeader("Access-Control-Allow-Headers", "Range");
   res.setHeader(
     "Access-Control-Expose-Headers",
-    "Content-Range, Accept-Ranges"
+    "Content-Range, Accept-Ranges",
   );
   res.setHeader("Accept-Ranges", "bytes");
 
